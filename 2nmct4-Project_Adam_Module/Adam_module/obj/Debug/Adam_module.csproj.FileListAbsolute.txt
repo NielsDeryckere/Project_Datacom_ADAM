@@ -39,9 +39,3 @@ C:\Users\niels\Google Drive\Semester 4\Datacommunication\Labo\2nmct4-Project_Ada
 C:\Users\niels\Google Drive\Semester 4\Datacommunication\Labo\2nmct4-Project_Adam_Module\Adam_module\obj\Debug\Adam_module.pdb
 C:\Users\niels\Google Drive\Semester 4\Datacommunication\Labo\2nmct4-Project_Adam_Module\Adam_module\bin\Debug\SmsEncoder.dll
 C:\Users\niels\Google Drive\Semester 4\Datacommunication\Labo\2nmct4-Project_Adam_Module\Adam_module\obj\Debug\Adam_module.csprojResolveAssemblyReference.cache
-C:\Users\niels\Google Drive\Semester 4\Datacommunication\Project_ADAM\2nmct4-Project_Adam_Module\Adam_module\bin\Debug\Adam_module.exe.config
-C:\Users\niels\Google Drive\Semester 4\Datacommunication\Project_ADAM\2nmct4-Project_Adam_Module\Adam_module\obj\Debug\Adam_module.exe
-C:\Users\niels\Google Drive\Semester 4\Datacommunication\Project_ADAM\2nmct4-Project_Adam_Module\Adam_module\obj\Debug\Adam_module.pdb
-C:\Users\niels\Google Drive\Semester 4\Datacommunication\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\Adam_module\bin\Debug\Adam_module.exe.config
-C:\Users\niels\Google Drive\Semester 4\Datacommunication\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\Adam_module\obj\Debug\Adam_module.exe
-C:\Users\niels\Google Drive\Semester 4\Datacommunication\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\Adam_module\obj\Debug\Adam_module.pdb
