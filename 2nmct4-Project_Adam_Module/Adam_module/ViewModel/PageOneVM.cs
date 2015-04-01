@@ -12,6 +12,15 @@ namespace Adam_module.ViewModel
 {
     class PageOneVM : ObservableObject, IPage
     {
+        int retCode, Protocol, hContext, hCard, Readercount;
+        byte[] ReaderListBuff = new byte[262];
+        byte[] ReaderGroupBuff;
+        bool diFlag;
+        ModWinsCard.SCARD_IO_REQUEST ioRequest;
+        int sendLen, RecvLen;
+        byte[] RecvBuff = new byte[262];
+        byte[] SendBuff = new byte[262];
+        
         public string Name
         {
             get { return "First page"; }
@@ -53,9 +62,19 @@ namespace Adam_module.ViewModel
             
         }
 
+        public void SmartCard()
+        {
+
+        }
+
         public ICommand CommandConnect
         {
             get{return new RelayCommand(Test);} 
+        }
+
+        public ICommand SmartCardCommand
+        {
+            get { return new RelayCommand(SmartCard); }
         }
        
 

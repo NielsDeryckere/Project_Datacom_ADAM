@@ -24,7 +24,8 @@
         </Grid.ColumnDefinitions>
         <Button Content="Connect"  Margin="10" Command="{Binding CommandConnect}"/>
         <TextBlock Text="{Binding Succeeded}" Grid.Row="0" Grid.Column="1" Margin="10" TextAlignment="Center"/>
-      
+        <Button Content="SmartCard" Margin="10" Grid.Row="1" Command="{Binding SmartCardCommand}"/>
+
 
 
 
