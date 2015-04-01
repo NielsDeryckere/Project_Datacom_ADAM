@@ -24,7 +24,7 @@
         </Grid.ColumnDefinitions>
         <Button Content="Connect"  Margin="10" Command="{Binding CommandConnect}"/>
         <TextBlock Text="{Binding Succeeded}" Grid.Row="0" Grid.Column="1" Margin="10" TextAlignment="Center"/>
-        <ListBox HorizontalAlignment="Left" Height="100" Grid.Row="1" VerticalAlignment="Top" Width="150"/>
+      
 
 
 
