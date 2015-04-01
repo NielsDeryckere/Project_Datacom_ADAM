@@ -6,7 +6,7 @@
              xmlns:vm="clr-namespace:Adam_module.ViewModel"
              xmlns:v="clr-namespace:Adam_module.View"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="1080" d:DesignWidth="1920">
     <UserControl.DataContext>
         <vm:PageOneVM/>
     </UserControl.DataContext>
