@@ -48,14 +48,6 @@ namespace Adam_module.ViewModel
             {
 
                 Modbus Mb = new Modbus(adso);
-                bool test=Mb.ForceSingleCoil(17, true);
-                bool[] b;
-                bool read = Mb.ReadCoilStatus(1, 1, out b);
-                
-
-                Console.WriteLine(test);
-                Console.WriteLine("CoilStatus: "+b[0]);
-                Console.WriteLine("Read Succesfull: " + read);
             }
 
             
