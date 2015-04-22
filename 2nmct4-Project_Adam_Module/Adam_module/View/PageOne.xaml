@@ -5,13 +5,26 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:Adam_module.ViewModel"
              xmlns:v="clr-namespace:Adam_module.View"
-             mc:Ignorable="d" 
-             d:DesignHeight="1080" d:DesignWidth="1920" >
+             xmlns:c="clr-namespace:Adam_module"
+             mc:Ignorable="d" d:DesignWidth="960" d:DesignHeight="716" 
+             >
     <UserControl.DataContext>
         <vm:PageOneVM/>
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <c:StateToColorConverter x:Key="StateToColorConverter"/>
+        <ControlTemplate x:Key="TemplateDemo" TargetType="Button">
+            <Grid>
+                <Ellipse Fill="{Binding Ventilator[0], Converter={StaticResource StateToColorConverter} }" Width="50" Height="50"/>
+
+            </Grid>
+        </ControlTemplate>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -22,9 +35,10 @@
             <ColumnDefinition Width="*"/>
 
         </Grid.ColumnDefinitions>
-        <Button Content="Connect"  Margin="10
-                " Command="{Binding CommandConnect}"/>
-        <TextBlock Text="{Binding Succeeded}" Grid.Row="0"  TextAlignment="Center" FontSize="24" Margin="30,200,170,10" Grid.Column="1"/>
+        <Button   Command="{Binding CommandConnect}" Template="{StaticResource TemplateDemo}" Width="50" Height="50"  Grid.Row="0" Grid.Column="0" Margin="33,34,397,35">
+            
+        </Button>
+        <TextBlock Text="{Binding Succeeded}"  TextAlignment="Center" FontSize="24" Width="100" Height="50"  Grid.Row="0" Grid.Column="0" Margin="88,34,292,35" />
 
 
 

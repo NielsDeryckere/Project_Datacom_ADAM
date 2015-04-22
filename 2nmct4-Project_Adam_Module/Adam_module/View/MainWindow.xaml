@@ -3,8 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:Adam_module.ViewModel"
         xmlns:v="clr-namespace:Adam_module.View"
-        Title="MainWindow" Height="1080" Width="1920
-        " WindowState="Maximized">
+        Title="MainWindow" WindowState="Maximized">
     <Window.DataContext>
         <vm:ApplicationVM/>
     </Window.DataContext>
