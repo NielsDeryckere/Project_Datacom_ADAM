@@ -6,7 +6,7 @@
              xmlns:vm="clr-namespace:Adam_module.ViewModel"
              xmlns:v="clr-namespace:Adam_module.View"
              mc:Ignorable="d" 
-             d:DesignHeight="1080" d:DesignWidth="1920">
+             d:DesignHeight="1080" d:DesignWidth="1920" >
     <UserControl.DataContext>
         <vm:PageOneVM/>
     </UserControl.DataContext>
@@ -22,9 +22,10 @@
             <ColumnDefinition Width="*"/>
 
         </Grid.ColumnDefinitions>
-        <Button Content="Connect"  Margin="10" Command="{Binding CommandConnect}"/>
-        <TextBlock Text="{Binding Succeeded}" Grid.Row="0" Grid.Column="1" Margin="10" TextAlignment="Center"/>
-      
+        <Button Content="Connect"  Margin="10
+                " Command="{Binding CommandConnect}"/>
+        <TextBlock Text="{Binding Succeeded}" Grid.Row="0"  TextAlignment="Center" FontSize="24" Margin="30,200,170,10" Grid.Column="1"/>
+
 
 
 

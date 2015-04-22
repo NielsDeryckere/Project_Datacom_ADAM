@@ -4,7 +4,7 @@
         xmlns:vm="clr-namespace:Adam_module.ViewModel"
         xmlns:v="clr-namespace:Adam_module.View"
         Title="MainWindow" Height="1080" Width="1920
-        ">
+        " WindowState="Maximized">
     <Window.DataContext>
         <vm:ApplicationVM/>
     </Window.DataContext>
