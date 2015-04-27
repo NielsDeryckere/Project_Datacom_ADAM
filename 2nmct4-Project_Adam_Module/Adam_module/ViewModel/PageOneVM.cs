@@ -9,10 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
+using System.IO.Ports;
 
 namespace Adam_module.ViewModel
 {
-    class PageOneVM : ObservableObject, IPage
+   class PageOneVM : ObservableObject, IPage
     {
         BackgroundWorker bw = new BackgroundWorker();
         bool[] b = new bool[5];
@@ -54,12 +55,22 @@ namespace Adam_module.ViewModel
             get { return _buttons; }
             set { _buttons = value; OnPropertyChanged("Devices"); }
         }
+        public SerialPort serialPort;
 
         public PageOneVM()
         {
+            //ConnectToSerialPort();
+            ConnectADAM();
 
-                try
-                {   Buttons = new int[5];
+               
+              
+        }
+       public void ConnectADAM()
+       { try
+                {
+                    
+                    
+                    Buttons = new int[5];
                     for (int i = 0; i < 5; i++)
                     {
                         Buttons[i] = i;
@@ -73,7 +84,7 @@ namespace Adam_module.ViewModel
                     {
 
                         Mb = new Modbus(adso);
-                        Devices = new bool[5];
+                         Devices = new bool[5];
                         Mb.ReadCoilStatus(0x11, 4, out b);
                         Devices = b;
 
@@ -85,15 +96,14 @@ namespace Adam_module.ViewModel
                         bw.RunWorkerCompleted += bw_RunWorkerCompleted;
 
                         bw.RunWorkerAsync();
-                    }
-                }
+                    }  }
                 catch (Exception ex)
                 {
 
                     MessageBox.Show(ex.Message);
                 }
-        }
 
+       }
         void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             try
@@ -228,6 +238,44 @@ namespace Adam_module.ViewModel
         {
             get { return new RelayCommand<int>(Test); } 
         }
+
+        public ICommand CommandConnectCOM
+        {
+            get { return new RelayCommand(ConnectToSerialPort); }
+        }
+
+       public void ConnectToSerialPort()
+       {
+           try
+           {
+               serialPort = new SerialPort();
+               serialPort.PortName = "COM2";
+               serialPort.BaudRate = 9600;
+               serialPort.DataBits = 8;
+               serialPort.Parity = Parity.None;
+               serialPort.ReadTimeout = 300;
+               serialPort.WriteTimeout = 300;
+               serialPort.StopBits = StopBits.One;
+               serialPort.Handshake = Handshake.None;
+               serialPort.Open();
+               if (serialPort.IsOpen == true)
+               {
+                   MessageBox.Show("Succesvol");
+               }
+               else
+               {
+                   MessageBox.Show("Niet succesvol");
+               }
+           }
+           catch (Exception ex)
+           {
+               MessageBox.Show(ex.Message);
+               
+           }
+           
+       }
+
+      
        
 
     }
