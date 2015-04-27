@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace Adam_module.ViewModel
 {
-    public class LoginVM : ObservableObject, IPage
+     class LoginVM : ObservableObject, IPage
     {
         ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
         SmartCard.Roles cardRole;
@@ -22,8 +22,11 @@ namespace Adam_module.ViewModel
         private void ReadCard()
         {
             cardRole = SmartCard.ReadCard();
-            if(cardRole != SmartCard.Roles.Reset)
+            if (cardRole != SmartCard.Roles.Reset)
+            {
+                appvm.huidigeGebruiker = cardRole;
                 appvm.ChangePage(new PageOneVM());
+            }
         }
 
         public ICommand ReadCardCommand

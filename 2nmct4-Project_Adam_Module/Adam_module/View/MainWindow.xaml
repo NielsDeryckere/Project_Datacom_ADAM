@@ -12,6 +12,9 @@
         <DataTemplate DataType="{x:Type vm:PageOneVM}">
             <v:PageOne/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:LoginVM}">
+            <v:PageOne/>
+        </DataTemplate>
     </Window.Resources>
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo/>
