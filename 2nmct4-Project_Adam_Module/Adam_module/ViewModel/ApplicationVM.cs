@@ -12,7 +12,6 @@ namespace Adam_module.ViewModel
     {
         public ApplicationVM()
         {
-            Pages.Add(new LoginVM());
             Pages.Add(new PageOneVM());
             // Add other pages
 
@@ -42,7 +41,7 @@ namespace Adam_module.ViewModel
             get { return new RelayCommand<IPage>(ChangePage); }
         }
 
-        public void ChangePage(IPage page)
+        private void ChangePage(IPage page)
         {
             CurrentPage = page;
         }
