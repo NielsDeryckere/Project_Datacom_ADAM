@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Adam_module.ViewModel
@@ -22,7 +23,7 @@ namespace Adam_module.ViewModel
         byte[] RecvBuff = new byte[262];
         byte[] SendBuff = new byte[262];
 
-        enum Roles { Administrator, User, Staff };
+        enum Roles { Administrator, User, Staff, Reset };
         
         public string Name
         {
@@ -35,7 +36,6 @@ namespace Adam_module.ViewModel
         {
             get { return _demo; }
             set { _demo = value; OnPropertyChanged("Demo"); }
-
         }
 
         private bool _succeeded;
@@ -66,20 +66,14 @@ namespace Adam_module.ViewModel
         }
 
         #region Smartcard
-        private void SmartCardRead()
+        private void SmartCardReadTest()
         {
-            InitialiseSmartCardReader();
-            StartTransaction();
-            ReadCard();
-            EndTransaction();
+            MessageBox.Show(ReadCard().ToString());
         }
         
-        private void SmartCardWrite()
+        private void SmartCardWriteTest()
         {
-            InitialiseSmartCardReader();
-            StartTransaction();
             CreateNewCard(Roles.Administrator);
-            EndTransaction();
         }
 
         private void InitialiseSmartCardReader()
@@ -118,7 +112,10 @@ namespace Adam_module.ViewModel
         }
 
         private void StartTransaction()
-        { 
+        {
+            Array.Clear(SendBuff, 0, 262);
+            Array.Clear(RecvBuff, 0, 262);
+            
             //Prepare Buffer
             SendBuff[0] = 0xFF;//start
             SendBuff[2] = 0x20; //memory adres
@@ -126,6 +123,7 @@ namespace Adam_module.ViewModel
             SendBuff[4] = 0x01;
             SendBuff[5] = 0x1;//I2c
             sendLen = 6;
+            RecvLen = RecvBuff.Length;
 
             ioRequest.dwProtocol = Protocol;
             ioRequest.cbPciLength = 8;
@@ -133,7 +131,7 @@ namespace Adam_module.ViewModel
             retCode = ModWinsCard.SCardBeginTransaction(hCard);
             if (retCode != ModWinsCard.SCARD_S_SUCCESS)
                 throw new Exception(retCode.ToString());
-            
+
             retCode = ModWinsCard.SCardTransmit(hCard, ref ioRequest, ref SendBuff[0], sendLen, ref ioRequest, ref RecvBuff[0], ref RecvLen);
             if (retCode != ModWinsCard.SCARD_S_SUCCESS)
                 throw new Exception(retCode.ToString());
@@ -146,9 +144,38 @@ namespace Adam_module.ViewModel
             ModWinsCard.SCardReleaseContext(hContext);
         }
 
-        private void ReadCard()
+        private Roles ReadCard()
         {
+            Array.Clear(SendBuff, 0, 262);
+            Array.Clear(RecvBuff, 0, 262);
+            
+            InitialiseSmartCardReader();
+            StartTransaction();
 
+            SendBuff[0] = 0xFF;//start
+            SendBuff[1] = 0xB0;//instruction Read
+            SendBuff[2] = 0x0; //memory adres
+            SendBuff[4] = 0x01;
+            sendLen = 6;
+
+            retCode = ModWinsCard.SCardTransmit(hCard, ref ioRequest, ref SendBuff[0], sendLen, ref ioRequest, ref RecvBuff[0], ref RecvLen);
+            if (retCode != ModWinsCard.SCARD_S_SUCCESS)
+                throw new Exception(retCode.ToString());
+
+            EndTransaction();
+
+            return GetCardRole();
+        }
+
+        private Roles GetCardRole()
+        {
+            switch(RecvBuff[0])
+            {
+                case 0x66: return Roles.Administrator;
+                case 0x69: return Roles.User;
+                case 0x99: return Roles.Staff;
+                default: return Roles.Reset;
+            }
         }
 
         private void CreateNewCard(Roles r)
@@ -156,18 +183,37 @@ namespace Adam_module.ViewModel
             Array.Clear(SendBuff, 0, 262);
             Array.Clear(RecvBuff, 0, 262);
 
+            InitialiseSmartCardReader();
+            StartTransaction();
+
             SendBuff[0] = 0xFF;//start
             SendBuff[1] = 0xD0;//instruction write
             SendBuff[2] = 0x0; //memory adres
             SendBuff[3] = 0x0;
-            SendBuff[4] = 0x0;
-            SendBuff[5] = 0x69;
+            SendBuff[4] = 0x01;
+            
+            switch(r)
+            {
+                case Roles.Administrator: SendBuff[5] = 0x66;
+                    break;
+
+                case Roles.User: SendBuff[5] = 0x69;
+                    break;
+
+                case Roles.Staff: SendBuff[5] = 0x99;
+                    break;
+
+                case Roles.Reset: SendBuff[5] = 0x00;
+                    break;
+            }
 
             sendLen = 6;
 
             retCode = ModWinsCard.SCardTransmit(hCard, ref ioRequest, ref SendBuff[0], sendLen, ref ioRequest, ref RecvBuff[0], ref RecvLen);
             if (retCode != ModWinsCard.SCARD_S_SUCCESS)
                 throw new Exception(retCode.ToString());
+
+            EndTransaction();
         }
 
         public ICommand CommandConnect
@@ -177,12 +223,12 @@ namespace Adam_module.ViewModel
 
         public ICommand SmartCardReadCommand
         {
-            get { return new RelayCommand(SmartCardRead); }
+            get { return new RelayCommand(SmartCardReadTest); }
         }
 
         public ICommand SmartCardWriteCommand
         {
-            get { return new RelayCommand(SmartCardWrite); }
+            get { return new RelayCommand(SmartCardWriteTest); }
         }
 
         #endregion
