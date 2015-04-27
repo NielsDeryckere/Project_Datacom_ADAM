@@ -25,16 +25,7 @@ namespace Adam_module.ViewModel
             set { currentPage = value; OnPropertyChanged("CurrentPage"); }
         }
 
-        private List<IPage> pages;
-        public List<IPage> Pages
-        {
-            get
-            {
-                if (pages == null)
-                    pages = new List<IPage>();
-                return pages;
-            }
-        }
+        
 
         public ICommand ChangePageCommand
         {
