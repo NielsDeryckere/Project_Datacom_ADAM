@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:Adam_module.ViewModel"
         xmlns:v="clr-namespace:Adam_module.View"
-        Title="MainWindow" WindowState="Maximized">
+        Title="MainWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Height="768" Width="1024">
     <Window.DataContext>
         <vm:ApplicationVM/>
     </Window.DataContext>
@@ -13,7 +13,7 @@
         </DataTemplate>
     </Window.Resources>
     <Grid>
-        <ContentControl Grid.Row="1" Content="{Binding CurrentPage}"/>
+        <ContentControl  Content="{Binding CurrentPage}"/>
        
     </Grid>
 </Window>

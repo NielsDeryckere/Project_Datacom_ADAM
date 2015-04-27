@@ -8,6 +8,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows;
 
 namespace Adam_module.ViewModel
 {
@@ -38,49 +39,78 @@ namespace Adam_module.ViewModel
             set { _succeeded = value; OnPropertyChanged("Succeeded"); }
         }
 
-        private bool[] _ventilator;
-        public bool[] Ventilator
+        private bool[] _devices=new bool[5]{false,false,false,false,false};
+        public bool[] Devices
         {
-            get { return _ventilator; }
-            set { _ventilator = value; OnPropertyChanged("Ventilator"); }
+            get { return _devices; }
+            set { _devices = value; OnPropertyChanged("Devices"); }
         }
 
         public Modbus Mb;
 
+        private int[] _buttons;
+        public int[] Buttons
+        {
+            get { return _buttons; }
+            set { _buttons = value; OnPropertyChanged("Devices"); }
+        }
+
         public PageOneVM()
-        { 
-            ModWinsCard mwc = new ModWinsCard();
+        {
 
-            AdamSocket adso=new AdamSocket();
-           
-            Succeeded = adso.Connect(AdamType.Adam6000, "172.23.49.102",ProtocolType.Tcp);
-            if (Succeeded)
-            {
-                
-                Mb = new Modbus(adso);
-                Ventilator = new bool[5];
-                Mb.ReadCoilStatus(0x11, 5, out b);
-                Ventilator = b;
+                try
+                {   Buttons = new int[5];
+                    for (int i = 0; i < 5; i++)
+                    {
+                        Buttons[i] = i;
+                    }
+                    ModWinsCard mwc = new ModWinsCard();
 
-                bw.WorkerReportsProgress = true;
-                bw.WorkerSupportsCancellation = true;
-              
-                bw.DoWork += bw_DoWork;
+                    AdamSocket adso = new AdamSocket();
 
-                bw.RunWorkerCompleted += bw_RunWorkerCompleted;
+                    Succeeded = adso.Connect(AdamType.Adam6000, "172.23.49.102", ProtocolType.Tcp);
+                    if (Succeeded)
+                    {
 
-                bw.RunWorkerAsync();
-            }
+                        Mb = new Modbus(adso);
+                        Devices = new bool[5];
+                        Mb.ReadCoilStatus(0x11, 4, out b);
+                        Devices = b;
+
+                        bw.WorkerReportsProgress = true;
+                        bw.WorkerSupportsCancellation = true;
+
+                        bw.DoWork += bw_DoWork;
+
+                        bw.RunWorkerCompleted += bw_RunWorkerCompleted;
+
+                        bw.RunWorkerAsync();
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.Message);
+                }
         }
 
         void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if(e.Cancelled==false){ 
-                Ventilator =(bool[]) e.Result;
-            Console.WriteLine(Ventilator[0]);
-            bw.RunWorkerAsync();
+            try
+            {
+                if (e.Cancelled == false)
+                {
+                    Devices = (bool[])e.Result;
+                    Console.WriteLine(Devices[0]);
+                    bw.RunWorkerAsync();
 
 
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
             }
             
 
@@ -92,7 +122,7 @@ namespace Adam_module.ViewModel
             bool[] c = new bool[5];
             bool[] d = new bool[5];
             
-            Mb.ReadCoilStatus(0x11, 5, out c);
+            Mb.ReadCoilStatus(0x11, 4, out c);
             BackgroundWorker worker = sender as BackgroundWorker;
            
             do{
@@ -102,7 +132,7 @@ namespace Adam_module.ViewModel
 
                 }
 
-                Mb.ReadCoilStatus(0x11, 5, out d);
+                Mb.ReadCoilStatus(0x11, 4, out d);
 
                 if (!c.SequenceEqual(d))
                 {
@@ -115,24 +145,80 @@ namespace Adam_module.ViewModel
                 
           }
             while(true);
+            
            
             
             
         }
-        public void Test()
+        public void Test(int i)
         {
-            
-           
-           
-                
-                Console.WriteLine(Ventilator[0]);
-                if (Ventilator[0])
+            try
+            {
+                bool[] b = new bool[5];
+                //Mb.ReadCoilStatus(0x11, 4, out b);
+                //Devices = b;
+
+
+                Console.WriteLine(Devices[0]);
+                Console.WriteLine(Devices[1]);
+                Console.WriteLine(Devices[2]);
+                Console.WriteLine(Devices[3]);
+                Console.WriteLine(Devices[4]);
+
+
+
+                if (Devices[i])
                 {
-                    Mb.ForceSingleCoil(0x11, false);
+                    switch (i)
+                    {
+                        case 0: Mb.ForceSingleCoil(0x11, false);
+                            break;
+
+                        case 1: Mb.ForceSingleCoil(0x12, false);
+                            break;
+
+                        case 2: Mb.ForceSingleCoil(0x13, false);
+                            break;
+
+                        case 3: Mb.ForceSingleCoil(0x14, false);
+                            break;
+
+                        case 4: Mb.ForceSingleCoil(0x15, false);
+                            break;
+                    }
 
                 }
 
-                else { Mb.ForceSingleCoil(0x11, true); }
+
+
+                else
+                {
+                    switch (i)
+                    {
+                        case 0: Mb.ForceSingleCoil(0x11, true);
+                            break;
+
+                        case 1: Mb.ForceSingleCoil(0x12, true);
+                            break;
+
+                        case 2: Mb.ForceSingleCoil(0x13, true);
+                            break;
+
+                        case 3: Mb.ForceSingleCoil(0x14, true);
+                            break;
+
+                        case 4: Mb.ForceSingleCoil(0x15, true);
+                            break;
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                
+                MessageBox.Show("Geen verbinding, maak opnieuw verbinding");
+            }
+                
             
 
             
@@ -140,7 +226,7 @@ namespace Adam_module.ViewModel
 
         public ICommand CommandConnect
         {
-            get{return new RelayCommand(Test);} 
+            get { return new RelayCommand<int>(Test); } 
         }
        
 
