@@ -93,6 +93,7 @@ C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\Adam
 C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\Adam_module\bin\Debug\System.Net.Http.Extensions.dll
 C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\Adam_module\bin\Debug\System.Net.Http.Primitives.dll
 C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\Adam_module\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\Adam_module\bin\Debug\Advantech.Protocol.dll
 C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\Adam_module\bin\Debug\GalaSoft.MvvmLight.pdb
 C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\Adam_module\bin\Debug\GalaSoft.MvvmLight.xml
 C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\Adam_module\bin\Debug\GalaSoft.MvvmLight.Extras.pdb
@@ -117,5 +118,3 @@ C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\Adam
 C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\Adam_module\obj\Debug\Adam_module.g.resources
 C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\Adam_module\obj\Debug\Adam_module.Properties.Resources.resources
 C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\Adam_module\obj\Debug\Adam_module.csproj.GenerateResource.Cache
-C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\Adam_module\obj\Debug\View\Login.g.cs
-C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\Adam_module\obj\Debug\View\Login.baml
