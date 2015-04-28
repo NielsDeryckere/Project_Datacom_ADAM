@@ -5,29 +5,79 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:Adam_module.ViewModel"
              xmlns:v="clr-namespace:Adam_module.View"
-             mc:Ignorable="d" 
-             d:DesignHeight="1080" d:DesignWidth="1920">
+             xmlns:c="clr-namespace:Adam_module"
+             
+             
+             
+             
+             >
     <UserControl.DataContext>
         <vm:PageOneVM/>
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <c:StateToColorConverter x:Key="StateToColorConverter"/>
+        <ControlTemplate x:Key="TemplateDemo" TargetType="Button">
+            <Grid>
+                <Ellipse Fill="{Binding Devices[0], Converter={StaticResource StateToColorConverter} }" Width="50" Height="50"/>
+
+            </Grid>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="TemplateDemo2" TargetType="Button">
+            <Grid>
+                <Ellipse Fill="{Binding Devices[1],Mode=TwoWay, Converter={StaticResource StateToColorConverter} }" Width="auto" Height="auto"/>
+
+            </Grid>
+        </ControlTemplate>
+        <ControlTemplate x:Key="TemplateDemo3" TargetType="Button">
+            <Grid>
+                <Ellipse Fill="{Binding Devices[2],Mode=TwoWay, Converter={StaticResource StateToColorConverter} }" Width="auto" Height="auto"/>
+
+            </Grid>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="TemplateDemo4" TargetType="Button">
+            <Grid>
+                <Ellipse Fill="{Binding Devices[3],Mode=TwoWay, Converter={StaticResource StateToColorConverter} }" Width="auto" Height="auto"/>
+
+            </Grid>
+        </ControlTemplate>
+        <ControlTemplate x:Key="TemplateDemo5" TargetType="Button">
+            <Grid>
+                <Ellipse Fill="{Binding Devices[4],Mode=TwoWay, Converter={StaticResource StateToColorConverter} }" Width="auto" Height="auto"/>
+
+            </Grid>
+        </ControlTemplate>
+    </UserControl.Resources>
+
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+        <TabControl Height="634" Width="1024">
 
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-
-        </Grid.ColumnDefinitions>
-        <Button Content="Connect"  Margin="10" Command="{Binding CommandConnect}"/>
-        <TextBlock Text="{Binding Succeeded}" Grid.Row="0" Grid.Column="1" Margin="10" TextAlignment="Center"/>
-      
+            <TabItem Header="Map" >
 
 
+                <Grid Margin="0">
+                    <Grid.Background>
+                        <ImageBrush ImageSource="C:\Users\niels\Google Drive\Semester 4\Datacommunication\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\2nmct4-Project_Adam_Module\bin\Debug\HuisVisualCrop.jpg"/>
+                    </Grid.Background>
 
+
+                    <Button Name="btnVentilator"  Command="{Binding CommandConnect}" CommandParameter="{Binding Buttons[0]}" Template="{StaticResource TemplateDemo}"  Width="50" Height="50"  Margin="509,328,459,228" RenderTransformOrigin="-0.9,-1.08" />
+                    <Button Name="btnBureau"  Command="{Binding CommandConnect}"  CommandParameter="{Binding Buttons[1]}" Template="{StaticResource TemplateDemo2}" Width="50" Height="50" Margin="132,150,836,406" />
+                    <Button Name="btnZitruimte"   Command="{Binding CommandConnect}"  CommandParameter="{Binding Buttons[2]}" Template="{StaticResource TemplateDemo3}" Width="50" Height="50" Margin="154,401,814,155" />
+                    <Button Name="btnKeuken" Command="{Binding CommandConnect}"  CommandParameter="{Binding Buttons[3]}" Template="{StaticResource TemplateDemo4}" Width="50" Height="50" Margin="709,503,259,53" />
+                    <GroupBox Header="Controls" Margin="902,328,10,29">
+                        <Button Name="btnConnect" Content="Connect" Command="{Binding CommandConnectCOM}" Width="75" Height="50" Margin="0,23,19,154"/>
+
+                    </GroupBox>
+                    <TextBlock Text="{Binding Succeeded}"  TextAlignment="Center" FontSize="24" Width="100" Height="50"  Grid.Row="0" Grid.Column="1" Margin="10"/>
+
+
+
+
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </UserControl>
 

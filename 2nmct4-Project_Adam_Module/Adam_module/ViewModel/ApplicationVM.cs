@@ -12,10 +12,10 @@ namespace Adam_module.ViewModel
     {
         public ApplicationVM()
         {
-            Pages.Add(new PageOneVM());
+            
             // Add other pages
 
-            CurrentPage = Pages[0];
+            CurrentPage = new PageOneVM();
         }
 
         private object currentPage;
@@ -25,23 +25,14 @@ namespace Adam_module.ViewModel
             set { currentPage = value; OnPropertyChanged("CurrentPage"); }
         }
 
-        private List<IPage> pages;
-        public List<IPage> Pages
-        {
-            get
-            {
-                if (pages == null)
-                    pages = new List<IPage>();
-                return pages;
-            }
-        }
+        
 
         public ICommand ChangePageCommand
         {
             get { return new RelayCommand<IPage>(ChangePage); }
         }
 
-        private void ChangePage(IPage page)
+        public void ChangePage(IPage page)
         {
             CurrentPage = page;
         }
