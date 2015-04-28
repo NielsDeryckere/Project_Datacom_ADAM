@@ -66,8 +66,8 @@
                     <Button Name="btnBureau"  Command="{Binding CommandConnect}"  CommandParameter="{Binding Buttons[1]}" Template="{StaticResource TemplateDemo2}" Width="50" Height="50" Margin="132,150,836,406" />
                     <Button Name="btnZitruimte"   Command="{Binding CommandConnect}"  CommandParameter="{Binding Buttons[2]}" Template="{StaticResource TemplateDemo3}" Width="50" Height="50" Margin="154,401,814,155" />
                     <Button Name="btnKeuken" Command="{Binding CommandConnect}"  CommandParameter="{Binding Buttons[3]}" Template="{StaticResource TemplateDemo4}" Width="50" Height="50" Margin="709,503,259,53" />
-                    <GroupBox Header="Controls" Height="200" Width="100" Margin="908,377,10,29">
-                    <Button Name="btnConnect" Content="Connect" Command="{Binding CommandConnectCOM}" Width="75" Height="50" Margin="10,39,3,89"/>
+                    <GroupBox Header="Controls" Margin="902,328,10,29">
+                        <Button Name="btnConnect" Content="Connect" Command="{Binding CommandConnectCOM}" Width="75" Height="50" Margin="0,23,19,154"/>
 
                     </GroupBox>
                     <TextBlock Text="{Binding Succeeded}"  TextAlignment="Center" FontSize="24" Width="100" Height="50"  Grid.Row="0" Grid.Column="1" Margin="10"/>
