@@ -54,6 +54,7 @@ namespace Adam_module.ViewModel
         }
 
         #region Smartcard
+        //Dit was enkel om te kunnen testen met mijn Test layout geweest, ge hoeft dees nie mee te kopiëren
         private void SmartCardReadTest()
         {
             MessageBox.Show(SmartCard.ReadCard().ToString());
