@@ -105,7 +105,6 @@ C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\Adam
 C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\Adam_module\bin\Debug\System.Net.Http.Extensions.xml
 C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\Adam_module\bin\Debug\System.Net.Http.Primitives.xml
 C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\Adam_module\obj\Debug\Adam_module.csproj.App.config
-C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\Adam_module\obj\Debug\Adam_module.csprojResolveAssemblyReference.cache
 C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\Adam_module\obj\Debug\View\MainWindow.g.cs
 C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\Adam_module\obj\Debug\View\PageOne.g.cs
 C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\Adam_module\obj\Debug\App.g.cs
