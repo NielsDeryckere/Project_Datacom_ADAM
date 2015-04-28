@@ -6,8 +6,8 @@
              xmlns:vm="clr-namespace:Adam_module.ViewModel"
              xmlns:v="clr-namespace:Adam_module.View"
              xmlns:c="clr-namespace:Adam_module"
-             mc:Ignorable="d" 
-             d:DesignHeight="768" d:DesignWidth="1024"
+             
+             
              
              
              >
@@ -51,24 +51,25 @@
     </UserControl.Resources>
 
     <Grid>
-        <TabControl>
+        <TabControl Height="634" Width="1024">
 
             <TabItem Header="Map" >
 
 
-                <Grid>
+                <Grid Margin="0">
                     <Grid.Background>
                         <ImageBrush ImageSource="C:\Users\niels\Google Drive\Semester 4\Datacommunication\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\2nmct4-Project_Adam_Module\bin\Debug\HuisVisualCrop.jpg"/>
                     </Grid.Background>
 
 
-                    <Button Name="btnVentilator"  Command="{Binding CommandConnect}" CommandParameter="{Binding Buttons[0]}" Template="{StaticResource TemplateDemo}"  Width="50" Height="50"  Margin="532,365,372,273" RenderTransformOrigin="-0.9,-1.08" />
-                    <Button Name="btnBureau"  Command="{Binding CommandConnect}"  CommandParameter="{Binding Buttons[1]}" Template="{StaticResource TemplateDemo2}" Width="50" Height="50" Margin="122,171,782,467" />
-                    <Button Name="btnZitruimte"   Command="{Binding CommandConnect}"  CommandParameter="{Binding Buttons[2]}" Template="{StaticResource TemplateDemo3}" Width="50" Height="50" Margin="122,441,782,197" />
-                    <Button Name="btnKeuken" Command="{Binding CommandConnect}"  CommandParameter="{Binding Buttons[3]}" Template="{StaticResource TemplateDemo4}" Width="50" Height="50" Margin="664,581,240,57" />
-                    <Button Name="btnConnect" Content="Connect" Command="{Binding CommandConnectCOM}" Width="100" Margin="884,437,34,223"/>
+                    <Button Name="btnVentilator"  Command="{Binding CommandConnect}" CommandParameter="{Binding Buttons[0]}" Template="{StaticResource TemplateDemo}"  Width="50" Height="50"  Margin="509,328,459,228" RenderTransformOrigin="-0.9,-1.08" />
+                    <Button Name="btnBureau"  Command="{Binding CommandConnect}"  CommandParameter="{Binding Buttons[1]}" Template="{StaticResource TemplateDemo2}" Width="50" Height="50" Margin="132,150,836,406" />
+                    <Button Name="btnZitruimte"   Command="{Binding CommandConnect}"  CommandParameter="{Binding Buttons[2]}" Template="{StaticResource TemplateDemo3}" Width="50" Height="50" Margin="154,401,814,155" />
+                    <Button Name="btnKeuken" Command="{Binding CommandConnect}"  CommandParameter="{Binding Buttons[3]}" Template="{StaticResource TemplateDemo4}" Width="50" Height="50" Margin="709,503,259,53" />
+                    <GroupBox Header="Controls" Height="200" Width="100" Margin="908,377,10,29">
+                    <Button Name="btnConnect" Content="Connect" Command="{Binding CommandConnectCOM}" Width="75" Height="50" Margin="10,39,3,89"/>
 
-
+                    </GroupBox>
                     <TextBlock Text="{Binding Succeeded}"  TextAlignment="Center" FontSize="24" Width="100" Height="50"  Grid.Row="0" Grid.Column="1" Margin="10"/>
 
 
