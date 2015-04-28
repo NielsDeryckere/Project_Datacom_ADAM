@@ -10,12 +10,11 @@ namespace Adam_module.ViewModel
 {
     class ApplicationVM : ObservableObject
     {
+        public SmartCard.Roles huidigeGebruiker;
+
         public ApplicationVM()
         {
-            
-            // Add other pages
-
-            CurrentPage = new PageOneVM();
+            CurrentPage = new LoginVM();
         }
 
         private object currentPage;
@@ -24,9 +23,6 @@ namespace Adam_module.ViewModel
             get { return currentPage; }
             set { currentPage = value; OnPropertyChanged("CurrentPage"); }
         }
-
-        
-
         public ICommand ChangePageCommand
         {
             get { return new RelayCommand<IPage>(ChangePage); }
