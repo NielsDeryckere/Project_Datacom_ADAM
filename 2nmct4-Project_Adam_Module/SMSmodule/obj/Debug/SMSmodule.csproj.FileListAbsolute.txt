@@ -6,3 +6,11 @@ C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\SMSm
 C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\SMSmodule\obj\Debug\SMSmodule.g.resources
 C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\SMSmodule\obj\Debug\SMSmodule.Properties.Resources.resources
 C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\SMSmodule\obj\Debug\SMSmodule.csproj.GenerateResource.Cache
+C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\SMSmodule\bin\Debug\SMSmodule.exe.config
+C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\SMSmodule\bin\Debug\SMSmodule.exe
+C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\SMSmodule\bin\Debug\SMSmodule.pdb
+C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\SMSmodule\bin\Debug\Advantech.Adam.dll
+C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\SMSmodule\bin\Debug\Advantech.Common.dll
+C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\SMSmodule\bin\Debug\SmsEncoder.dll
+C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\SMSmodule\obj\Debug\SMSmodule.exe
+C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\SMSmodule\obj\Debug\SMSmodule.pdb

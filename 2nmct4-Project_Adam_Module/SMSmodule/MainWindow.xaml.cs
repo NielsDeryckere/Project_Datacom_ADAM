@@ -5,6 +5,7 @@ using System.IO.Ports;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -69,6 +70,7 @@ namespace SMSmodule
 
         private void serial_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
+            Thread.Sleep(250);
             SerialPort spL = (SerialPort)sender;
             string data = serial.ReadExisting();
 
@@ -80,18 +82,13 @@ namespace SMSmodule
             if (recievedData != "OK")
             {
                 char[] splitters = { ':' };
-                string[] data = recievedData.Split(splitters, 2);
+                string[] splittersString = { "\r\n" };
+                string[] data = recievedData.Split(splitters);
 
                 switch (data[0])
                 {
                     //Nieuwe SMS ontvangen
-                    case "AT+CMTI": Console.WriteLine(data);
-                        data = data[1].Split(',');
-                        SendData("AT+CMGR=" +data[1]);
-                        break;
-                    //SMS Lezen
-                    case "+CMGR": Console.WriteLine(data);
-                        data = data[1].Split(',');
+                    case "\r\n+CMT": data = data[3].Split(splittersString, StringSplitOptions.None);
                         CommandCheck(data);
                         break;
                 }
@@ -112,12 +109,15 @@ namespace SMSmodule
                 Modbus Mb = new Modbus(adso);
                 byte[] output = { 0x00 };
 
-                switch (data[4])
+                switch (data[1])
                 {
-                    case "\r\nLichtenAanOK": output[0] = 0x0F;
-                        Mb.ForceMultiCoils(0x11, 4, 1, output);
+                    case "LichtenAan":
+                        Mb.ForceSingleCoil(0x12, true);
+                        //Mb.ForceSingleCoil(0x13, true);
+                        //Mb.ForceSingleCoil(0x14, true);
+                        //Mb.ForceSingleCoil(0x15, true);
                         break;
-                    case "\r\nLichtenUitOK": output[0] = 0x00;
+                    case "LichtenUit": output[0] = 0x00;
                         Mb.ForceMultiCoils(0x11, 4, 1, output);
                         break;
                 }
@@ -129,7 +129,7 @@ namespace SMSmodule
 
         private void SendData(string s)
         {
-            serial.WriteLine(s);
+            serial.WriteLine(s +"\r\n");
         }
 
         private void openSerialConnection()

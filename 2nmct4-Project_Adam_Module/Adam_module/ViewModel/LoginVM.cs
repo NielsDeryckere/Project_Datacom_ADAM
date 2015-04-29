@@ -22,7 +22,7 @@ namespace Adam_module.ViewModel
         private void ReadCard()
         {
             cardRole = SmartCard.ReadCard();
-            if(cardRole != SmartCard.Roles.Reset)
+            if (cardRole != SmartCard.Roles.Reset)
             {
                 appvm.huidigeGebruiker = cardRole;
                 appvm.ChangePage(new PageOneVM());

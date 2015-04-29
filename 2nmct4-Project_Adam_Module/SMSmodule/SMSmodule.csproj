@@ -34,10 +34,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Advantech.Adam">
+    <Reference Include="Advantech.Adam, Version=7.1.18.1, Culture=neutral, PublicKeyToken=3fd900e8195c8feb">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Adam_module\bin\Debug\Advantech.Adam.dll</HintPath>
     </Reference>
-    <Reference Include="Advantech.Common">
+    <Reference Include="Advantech.Common, Version=7.1.18.1, Culture=neutral, PublicKeyToken=3fd900e8195c8feb">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Adam_module\bin\Debug\Advantech.Common.dll</HintPath>
     </Reference>
     <Reference Include="SmsEncoder">
