@@ -34,6 +34,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Advantech.Adam">
+      <HintPath>..\Adam_module\bin\Debug\Advantech.Adam.dll</HintPath>
+    </Reference>
+    <Reference Include="Advantech.Common">
+      <HintPath>..\Adam_module\bin\Debug\Advantech.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="SmsEncoder">
+      <HintPath>\\psf\Google Drive\2NMCT\S2\Datacommunication\Project\Info\sms\SmsEncoder.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -67,6 +76,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModWinscard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

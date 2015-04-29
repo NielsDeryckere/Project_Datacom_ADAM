@@ -1,0 +1,8 @@
+C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\SMSmodule\obj\Debug\SMSmodule.csprojResolveAssemblyReference.cache
+C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\SMSmodule\obj\Debug\MainWindow.baml
+C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\SMSmodule\obj\Debug\MainWindow.g.cs
+C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\SMSmodule\obj\Debug\App.g.cs
+C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\SMSmodule\obj\Debug\SMSmodule_MarkupCompile.cache
+C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\SMSmodule\obj\Debug\SMSmodule.g.resources
+C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\SMSmodule\obj\Debug\SMSmodule.Properties.Resources.resources
+C:\Users\Kevin\Source\Repos\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\SMSmodule\obj\Debug\SMSmodule.csproj.GenerateResource.Cache

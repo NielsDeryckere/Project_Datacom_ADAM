@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Advantech.Adam;
+using System;
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -73,9 +75,61 @@ namespace SMSmodule
             CommandControle(data);
         }
 
-        private void CommandControle(string data)
+        private void CommandControle(string recievedData)
         {
-            throw new NotImplementedException();
+            if (recievedData != "OK")
+            {
+                char[] splitters = { ':' };
+                string[] data = recievedData.Split(splitters, 2);
+
+                switch (data[0])
+                {
+                    //Nieuwe SMS ontvangen
+                    case "AT+CMTI": Console.WriteLine(data);
+                        data = data[1].Split(',');
+                        SendData("AT+CMGR=" +data[1]);
+                        break;
+                    //SMS Lezen
+                    case "+CMGR": Console.WriteLine(data);
+                        data = data[1].Split(',');
+                        CommandCheck(data);
+                        break;
+                }
+                
+            }
+            else Console.WriteLine(recievedData);
+        }
+
+        private void CommandCheck(string[] data)
+        {
+            ModWinsCard mwc = new ModWinsCard();
+
+            AdamSocket adso = new AdamSocket();
+
+            bool Succeeded = adso.Connect(AdamType.Adam6000, "172.23.49.102", ProtocolType.Tcp);
+            if (Succeeded)      
+            {
+                Modbus Mb = new Modbus(adso);
+                byte[] output = { 0x00 };
+
+                switch (data[4])
+                {
+                    case "\r\nLichtenAanOK": output[0] = 0x0F;
+                        Mb.ForceMultiCoils(0x11, 4, 1, output);
+                        break;
+                    case "\r\nLichtenUitOK": output[0] = 0x00;
+                        Mb.ForceMultiCoils(0x11, 4, 1, output);
+                        break;
+                }
+                adso.Disconnect();
+            }
+            else
+                Console.WriteLine("ERROR: Connection to ADAM failed");
+        }
+
+        private void SendData(string s)
+        {
+            serial.WriteLine(s);
         }
 
         private void openSerialConnection()
