@@ -19,6 +19,8 @@ namespace Adam_module
         static byte[] SendBuff = new byte[262];
 
         public enum Roles { Administrator, User, Staff, Reset };
+       
+        
 
         private static void InitialiseSmartCardReader()
         {

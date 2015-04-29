@@ -10,13 +10,34 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using System.IO.Ports;
+using System.Threading;
 
 namespace Adam_module.ViewModel
 {
    class PageOneVM : ObservableObject, IPage
-    {
-        BackgroundWorker bw = new BackgroundWorker();
+   {
+       #region properties
+       ApplicationVM appvvm= App.Current.MainWindow.DataContext as ApplicationVM;
+
+        BackgroundWorker bw;
         bool[] b = new bool[5];
+        ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
+        private List<SmartCard.Roles> _roles;
+
+        public List<SmartCard.Roles> Roles
+        {
+            get { return _roles; }
+            set { _roles = value; OnPropertyChanged("Roles"); }
+        }
+
+        private SmartCard.Roles _selectedItem;
+
+        public SmartCard.Roles SelectedItem
+        {
+            get { return _selectedItem; }
+            set { _selectedItem = value; OnPropertyChanged("SelectedItem"); }
+        }
+        
 
         public string Name
         {
@@ -40,12 +61,21 @@ namespace Adam_module.ViewModel
             set { _succeeded = value; OnPropertyChanged("Succeeded"); }
         }
 
-        private bool[] _devices=new bool[5]{false,false,false,false,false};
+        private bool[] _devices;
         public bool[] Devices
         {
             get { return _devices; }
             set { _devices = value; OnPropertyChanged("Devices"); }
         }
+
+        private bool _admin;
+
+        public bool Admin
+        {
+            get { return _admin; }
+            set { _admin = value; OnPropertyChanged("Admin"); }
+        }
+        
 
         public Modbus Mb;
 
@@ -57,17 +87,29 @@ namespace Adam_module.ViewModel
         }
         public SerialPort serialPort;
 
+        bool ClickedButton = false;
+        
+       #endregion
+
         public PageOneVM()
         {
             //ConnectToSerialPort();
+           
             ConnectADAM();
-
-               
-              
+            Roles = new List<SmartCard.Roles>();
+            Roles.Add(SmartCard.Roles.Administrator);
+            Roles.Add(SmartCard.Roles.Staff);
+            Roles.Add(SmartCard.Roles.User);
+            if(appvvm.huidigeGebruiker==SmartCard.Roles.Administrator)
+            {
+                Admin = true;
+            }
         }
        public void ConnectADAM()
        { try
                 {
+           
+           
                     
                     
                     Buttons = new int[5];
@@ -85,9 +127,9 @@ namespace Adam_module.ViewModel
 
                         Mb = new Modbus(adso);
                          Devices = new bool[5];
-                        Mb.ReadCoilStatus(0x11, 4, out b);
+                        Mb.ReadCoilStatus(0x11, 5, out b);
                         Devices = b;
-
+                        bw = new BackgroundWorker();
                         bw.WorkerReportsProgress = true;
                         bw.WorkerSupportsCancellation = true;
 
@@ -100,27 +142,29 @@ namespace Adam_module.ViewModel
                 catch (Exception ex)
                 {
 
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show(ex.InnerException.Message);
                 }
 
        }
         void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            BackgroundWorker worker = sender as BackgroundWorker;
             try
             {
                 if (e.Cancelled == false)
                 {
                     Devices = (bool[])e.Result;
-                    Console.WriteLine(Devices[0]);
-                    bw.RunWorkerAsync();
+                    
+                    worker.RunWorkerAsync();
 
 
                 }
+                
             }
             catch (Exception ex)
             {
 
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.InnerException.Message);
             }
             
 
@@ -128,11 +172,12 @@ namespace Adam_module.ViewModel
         }
 
         void bw_DoWork(object sender, DoWorkEventArgs e)
-        {  
+        {
+            if (ClickedButton == false) { 
             bool[] c = new bool[5];
             bool[] d = new bool[5];
             
-            Mb.ReadCoilStatus(0x11, 4, out c);
+           
             BackgroundWorker worker = sender as BackgroundWorker;
            
             do{
@@ -142,92 +187,95 @@ namespace Adam_module.ViewModel
 
                 }
 
-                Mb.ReadCoilStatus(0x11, 4, out d);
-
-                if (!c.SequenceEqual(d))
+                Mb.ReadCoilStatus(0x11, 5, out d);
+               
+                if (!Devices.SequenceEqual(d))
                 {
                     e.Result = d;
+                   
                     
                     break;
                 } 
           
 
-                
+                 Thread.Sleep(1000); 
           }
             while(true);
             
            
-            
+            }
+            else {}
             
         }
         public void Test(int i)
         {
-            try
+           
+           
+            //bw = null;
+            ClickedButton = true;
+
+
+            if (Devices[i])
             {
-                bool[] b = new bool[5];
-                //Mb.ReadCoilStatus(0x11, 4, out b);
-                //Devices = b;
 
-
-                Console.WriteLine(Devices[0]);
-                Console.WriteLine(Devices[1]);
-                Console.WriteLine(Devices[2]);
-                Console.WriteLine(Devices[3]);
-                Console.WriteLine(Devices[4]);
-
-
-
-                if (Devices[i])
+                switch (i)
                 {
-                    switch (i)
-                    {
-                        case 0: Mb.ForceSingleCoil(0x11, false);
-                            break;
+                    case 0: Mb.ForceSingleCoil(0x11, false);
 
-                        case 1: Mb.ForceSingleCoil(0x12, false);
-                            break;
+                        break;
 
-                        case 2: Mb.ForceSingleCoil(0x13, false);
-                            break;
+                    case 1: Mb.ForceSingleCoil(0x12, false);
 
-                        case 3: Mb.ForceSingleCoil(0x14, false);
-                            break;
+                        break;
 
-                        case 4: Mb.ForceSingleCoil(0x15, false);
-                            break;
-                    }
+                    case 2: Mb.ForceSingleCoil(0x13, false);
 
+                        break;
+
+                    case 3: Mb.ForceSingleCoil(0x14, false);
+
+                        break;
+
+                    case 4: Mb.ForceSingleCoil(0x15, false);
+
+                        break;
                 }
 
+                ClickedButton = false;
 
-
-                else
-                {
-                    switch (i)
-                    {
-                        case 0: Mb.ForceSingleCoil(0x11, true);
-                            break;
-
-                        case 1: Mb.ForceSingleCoil(0x12, true);
-                            break;
-
-                        case 2: Mb.ForceSingleCoil(0x13, true);
-                            break;
-
-                        case 3: Mb.ForceSingleCoil(0x14, true);
-                            break;
-
-                        case 4: Mb.ForceSingleCoil(0x15, true);
-                            break;
-                    }
-
-                }
             }
-            catch (Exception)
+
+
+
+            else
             {
+                switch (i)
+                {
+                    case 0: Mb.ForceSingleCoil(0x11, true);
+
+                        break;
+
+                    case 1: Mb.ForceSingleCoil(0x12, true);
+
+                        break;
+
+                    case 2: Mb.ForceSingleCoil(0x13, true);
+
+                        break;
+
+                    case 3: Mb.ForceSingleCoil(0x14, true);
+
+                        break;
+
+                    case 4: Mb.ForceSingleCoil(0x15, true);
+
+                        break;
+                }
+                ClickedButton = false;
+
+            }
+
                 
-                MessageBox.Show("Geen verbinding, maak opnieuw verbinding");
-            }
                 
             
 
@@ -239,41 +287,27 @@ namespace Adam_module.ViewModel
             get { return new RelayCommand<int>(Test); } 
         }
 
-        public ICommand CommandConnectCOM
+        public ICommand LogoutCommand
         {
-            get { return new RelayCommand(ConnectToSerialPort); }
+            get { return new RelayCommand(Logout); }
         }
-
-       public void ConnectToSerialPort()
-       {
-           try
-           {
-               serialPort = new SerialPort();
-               serialPort.PortName = "COM2";
-               serialPort.BaudRate = 9600;
-               serialPort.DataBits = 8;
-               serialPort.Parity = Parity.None;
-               serialPort.ReadTimeout = 300;
-               serialPort.WriteTimeout = 300;
-               serialPort.StopBits = StopBits.One;
-               serialPort.Handshake = Handshake.None;
-               serialPort.Open();
-               if (serialPort.IsOpen == true)
-               {
-                   MessageBox.Show("Succesvol");
-               }
-               else
-               {
-                   MessageBox.Show("Niet succesvol");
-               }
-           }
-           catch (Exception ex)
-           {
-               MessageBox.Show(ex.Message);
-               
-           }
-           
-       }
+        public void Logout()
+        {
+            appvm.ChangePage(new LoginVM());
+            bw.CancelAsync();
+        }
+        public ICommand NewCardCommand
+        {
+            get { return new RelayCommand(NewCard); }
+        }
+       
+        public void NewCard()
+        {
+             SmartCard.CreateNewCard(SelectedItem);
+            
+            
+ 
+        }
 
       
        

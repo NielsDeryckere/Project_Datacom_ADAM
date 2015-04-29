@@ -21,12 +21,12 @@ namespace Adam_module.ViewModel
 
         private void ReadCard()
         {
-            cardRole = SmartCard.ReadCard();
-            if(cardRole != SmartCard.Roles.Reset)
-            {
-                appvm.huidigeGebruiker = cardRole;
+            //cardRole = SmartCard.ReadCard();
+            //if (cardRole != SmartCard.Roles.Reset)
+            //{
+            //    appvm.huidigeGebruiker = SmartCard.Roles.Administrator;
                 appvm.ChangePage(new PageOneVM());
-            }
+            //}
                 
         }
 
@@ -34,5 +34,7 @@ namespace Adam_module.ViewModel
         {
             get { return new RelayCommand(ReadCard); }
         }
+       
+
     }
 }
