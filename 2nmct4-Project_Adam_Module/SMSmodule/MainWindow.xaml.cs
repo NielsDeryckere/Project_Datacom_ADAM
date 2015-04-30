@@ -111,14 +111,19 @@ namespace SMSmodule
 
                 switch (data[1])
                 {
-                    case "LichtenAan":
-                        Mb.ForceSingleCoil(0x12, true);
-                        //Mb.ForceSingleCoil(0x13, true);
-                        //Mb.ForceSingleCoil(0x14, true);
-                        //Mb.ForceSingleCoil(0x15, true);
+                    case "LichtenAan": output[0] = 0x0F;
+                        Mb.ForceMultiCoils(0x12, 4, 1, output);
                         break;
                     case "LichtenUit": output[0] = 0x00;
-                        Mb.ForceMultiCoils(0x11, 4, 1, output);
+                        Mb.ForceMultiCoils(0x12, 4, 1, output);
+                        break;
+                    case "AircoAan": Mb.ForceSingleCoil(0x11, true);
+                        break;
+                    case "AircoUit": Mb.ForceSingleCoil(0x11, true);
+                        break;
+                    case "Status": bool[] b = new bool[5]; //Bureau: 1, Zitruimte: 2, Keuken: 3, Garage: 4
+                        Mb.ReadCoilStatus(0x11, 5, out b);
+                        SendData("AT+CMGS=”+32474678203”\r\nAirco: " + b[0] + "\r\nBureau: " + b[1] + "\r\nZitruimte: " + b[2] + "\r\nKeuken: " + b[3] + "\r\nGarage: " + b[4] + (char)26);
                         break;
                 }
                 adso.Disconnect();

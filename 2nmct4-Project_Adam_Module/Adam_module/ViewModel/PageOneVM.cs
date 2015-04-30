@@ -48,6 +48,7 @@ namespace Adam_module.ViewModel
             {
 
                 Modbus Mb = new Modbus(adso);
+                Mb.ForceSingleCoil(0x11, true);
             }
 
             
