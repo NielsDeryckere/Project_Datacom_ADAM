@@ -17,7 +17,7 @@ namespace Adam_module.ViewModel
    class PageOneVM : ObservableObject, IPage
    {
        #region properties
-       ApplicationVM appvvm= App.Current.MainWindow.DataContext as ApplicationVM;
+       
 
         BackgroundWorker bw;
         bool[] b = new bool[5];
@@ -88,21 +88,38 @@ namespace Adam_module.ViewModel
         public SerialPort serialPort;
 
         bool ClickedButton = false;
+
+        private SmartCard.Roles _loggedInUser;
+
+        public SmartCard.Roles LoggedInUser
+        {
+            get { return _loggedInUser; }
+            set { _loggedInUser = value; OnPropertyChanged("LoggedInUser"); }
+        }
+        
         
        #endregion
 
         public PageOneVM()
         {
-            //ConnectToSerialPort();
-           
-            ConnectADAM();
-            Roles = new List<SmartCard.Roles>();
-            Roles.Add(SmartCard.Roles.Administrator);
-            Roles.Add(SmartCard.Roles.Staff);
-            Roles.Add(SmartCard.Roles.User);
-            if(appvvm.huidigeGebruiker==SmartCard.Roles.Administrator)
+            try
             {
-                Admin = true;
+                //ConnectToSerialPort();
+                LoggedInUser = appvm.huidigeGebruiker;
+                ConnectADAM();
+                Roles = new List<SmartCard.Roles>();
+                Roles.Add(SmartCard.Roles.Administrator);
+                Roles.Add(SmartCard.Roles.Staff);
+                Roles.Add(SmartCard.Roles.User);
+                if (appvm.huidigeGebruiker == SmartCard.Roles.Administrator)
+                {
+                    Admin = true;
+                }
+            }
+            catch (Exception)
+            {
+                
+                throw;
             }
         }
        public void ConnectADAM()

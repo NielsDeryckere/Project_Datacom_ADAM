@@ -6,6 +6,8 @@
              xmlns:vm="clr-namespace:Adam_module.ViewModel"
              xmlns:v="clr-namespace:Adam_module.View"
              xmlns:c="clr-namespace:Adam_module"
+              mc:Ignorable="d" 
+              d:DesignHeight="768" d:DesignWidth="1024"
              
              
              
@@ -49,30 +51,49 @@
 
             </Grid>
         </ControlTemplate>
+
     </UserControl.Resources>
 
-    <Grid>
-        <TabControl Height="634" Width="1024" Margin="0,30,0,0">
-           
+    <Grid Background="White">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TabControl  Margin="10" Grid.RowSpan="3" Grid.ColumnSpan="2">
+
 
             <TabItem Header="Map" >
 
 
-                <Grid Margin="0">
-                    <Grid.Background>
-                        <ImageBrush ImageSource="C:\Users\niels\Google Drive\Semester 4\Datacommunication\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\2nmct4-Project_Adam_Module\bin\Debug\HuisVisualCrop.jpg"/>
-                    </Grid.Background>
+                <Grid Margin="0" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Image Source="C:\Users\niels\Google Drive\Semester 4\Datacommunication\Project_Datacom_ADAM\2nmct4-Project_Adam_Module\Adam_module\bin\Debug\HuisVisualCrop.jpg" Grid.ColumnSpan="3" Grid.RowSpan="3"/>
+
+                    <Button Name="btnVentilator"  Command="{Binding CommandConnect}" CommandParameter="{Binding Buttons[0]}" Template="{StaticResource TemplateDemo}"  Margin="76,117,98,33" RenderTransformOrigin="-0.9,-1.08" Grid.Column="1" Grid.Row="1" />
+                    <Button Name="btnBureau"  Command="{Binding CommandConnect}"  CommandParameter="{Binding Buttons[1]}" Template="{StaticResource TemplateDemo2}" Margin="100,161,111,26" />
+                    <Button Name="btnZitruimte"   Command="{Binding CommandConnect}"  CommandParameter="{Binding Buttons[2]}" Template="{StaticResource TemplateDemo3}" Margin="100,84,111,103" Grid.Row="1" />
+                    <Button Name="btnKeuken" Command="{Binding CommandConnect}"  CommandParameter="{Binding Buttons[3]}" Template="{StaticResource TemplateDemo4}" Margin="19,170,186,10" Grid.Column="2" Grid.Row="1" />
+                    <Button Name="btnGarage" Command="{Binding CommandConnect}"  CommandParameter="{Binding Buttons[4]}" Template="{StaticResource TemplateDemo5}" Margin="121,21,94,169" RenderTransformOrigin="1.74,-5.12" Grid.Column="2" Grid.Row="1" />
 
 
-                    <Button Name="btnVentilator"  Command="{Binding CommandConnect}" CommandParameter="{Binding Buttons[0]}" Template="{StaticResource TemplateDemo}" Width="50" Height="50"  Margin="509,328,459,228" RenderTransformOrigin="-0.9,-1.08" />
-                    <Button Name="btnBureau"  Command="{Binding CommandConnect}"  CommandParameter="{Binding Buttons[1]}" Template="{StaticResource TemplateDemo2}" Width="50" Height="50" Margin="132,150,836,406" />
-                    <Button Name="btnZitruimte"   Command="{Binding CommandConnect}"  CommandParameter="{Binding Buttons[2]}" Template="{StaticResource TemplateDemo3}" Width="50" Height="50" Margin="154,401,814,155" />
-                    <Button Name="btnKeuken" Command="{Binding CommandConnect}"  CommandParameter="{Binding Buttons[3]}" Template="{StaticResource TemplateDemo4}" Width="50" Height="50" Margin="709,503,259,53" />
-                    <GroupBox Header="Controls" Margin="902,328,10,29">
-                        <Button Name="btnConnect" Content="Reconnect" Command="{Binding CommandConnect}" Width="75" Height="50" Margin="0,23,19,154"/>
 
-                    </GroupBox>
-                    <TextBlock Text="{Binding Succeeded}"  TextAlignment="Center" FontSize="24" Width="100" Height="50"  Grid.Row="0" Grid.Column="1" Margin="10"/>
 
 
 
@@ -90,7 +111,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <GroupBox Header="Add card" Grid.Row="0" Grid.Column="0" IsEnabled="{Binding Admin}" >
+                    <GroupBox Header="Add card" Grid.Row="0" Grid.Column="0"  Margin="10" IsEnabled="{Binding Admin}" >
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -101,14 +122,14 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <ComboBox ItemsSource="{Binding Roles}" Height="50" Width="200" Margin="0,10,48,0" Grid.Row="1" SelectedItem="{Binding SelectedItem}"/>  
+                            <ComboBox ItemsSource="{Binding Roles}"  Margin="5" Grid.Row="1" Grid.Column="0" SelectedItem="{Binding SelectedItem}"/>
                             <Label Content="Selecteer rol" Margin="5"/>
-                            <Button Content="Voeg toe" Height="50" Margin="10,10,89,0" Grid.Column="1" Grid.Row="1" Command="{Binding NewCardCommand}" />
+                            <Button Content="Voeg toe" Margin="5" Grid.Column="1" Grid.Row="1" Command="{Binding NewCardCommand}" />
 
                         </Grid>
 
                     </GroupBox>
-                    <GroupBox Header="Reset kaart" Grid.Row="1" Grid.Column="0" IsEnabled="{Binding Admin}" >
+                    <GroupBox Header="Reset kaart" Grid.Row="1" Grid.Column="0" Margin="10" IsEnabled="{Binding Admin}" >
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -120,7 +141,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Button Content="Reset kaart" Margin="10,10,88,10" Grid.Row="1" />
+                            <Button Content="Reset kaart" Margin="10" Grid.Row="1" Grid.Column="0"/>
 
                         </Grid>
 
@@ -128,7 +149,16 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button Content="Afmelden" HorizontalAlignment="Left" Margin="939,15,0,0" VerticalAlignment="Top" Width="75" Command="{Binding LogoutCommand}"/>
+        <Button Content="Afmelden" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Bottom" Width="75" Command="{Binding LogoutCommand}" Height="30" Grid.Column="2" Grid.Row="1"/>
+        <Label Content="Connection ADAM:" HorizontalAlignment="Left" Margin="5,50,10,162"  Grid.Column="2" />
+        <Label Content="Logged in as: " HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top" Height="30" Grid.Column="2" Width="100" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,40,0,186" Text="{Binding LoggedInUser}" Width="100" Height="30" Grid.Column="2" Grid.Row="1"/>
+        <TextBlock Text="{Binding Succeeded}"   Grid.Row="0" Margin="10,99,5,123" Grid.Column="2" />
+
+        <Button Name="btnConnect" HorizontalAlignment="Left" Content="Reconnect" Command="{Binding CommandConnect}" Margin="10,151,0,64" Grid.Column="2"/>
+
+
+
     </Grid>
 </UserControl>
 
